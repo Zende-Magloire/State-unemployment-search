@@ -1,18 +1,32 @@
 import java.io.File;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Scanner;
-import java.util.StringTokenizer;
+import java.util.*;
 
 public class Main
 {
     private static final String Database = "res/unemployment.csv";
-    private static Scanner Reader = new Scanner (System.in);
+    private static Scanner reader = new Scanner (System.in);
     private static Map<String, State> MapState = new HashMap<>();
 
     public static void main (String[] args)
     {
         loadState();
+
+        System.out.println("abb?: ");
+        String abb = reader.nextLine();
+
+        if (abb == null)
+            abb = "";
+
+        String ab = abb.toUpperCase(Locale.ROOT);
+
+        if (!MapState.containsKey(ab)) {
+            System.out.println("not available");
+            return;
+        }
+
+        State state = MapState.get(ab);
+        System.out.println(state);
+
     }
 
     private static void loadState()
@@ -36,11 +50,11 @@ public class Main
                 String info = reader.nextLine();
                 StringTokenizer tokenizer = new StringTokenizer(info, ",");
 
-                String abb = tokenizer.nextToken();
+                String ab = tokenizer.nextToken();
                 String Full_name = tokenizer.nextToken();
                 Float Unemployed = Float.valueOf(tokenizer.nextToken());
 
-                State state = new State (abb);
+                State state = new State (ab);
                 state.full_name = Full_name;
                 state.unemployment = Unemployed;
 
@@ -53,7 +67,9 @@ public class Main
         }
         finally
         {
+            if (reader != null)
             reader.close();
         }
+
     }
 }

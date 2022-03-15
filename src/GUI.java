@@ -45,7 +45,7 @@ public class GUI extends JFrame implements ActionListener
         LBLresult = new JLabel("STATE SEARCH");
         LBLresult.setHorizontalAlignment(JLabel.CENTER);
 
-        pnlTop.add(new JLabel("Enter state:"));
+        pnlTop.add(new JLabel("Enter state abbreviation:"));
         pnlTop.add(TFinput);
         pnlTop.add(BTNgo);
 
@@ -57,7 +57,8 @@ public class GUI extends JFrame implements ActionListener
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
+    public void actionPerformed(ActionEvent e)
+    {
 
     }
 }
