@@ -42,6 +42,7 @@ public class Main extends JFrame implements ActionListener
         setSize(512, 256);
 
         JPanel pnlTop = new JPanel();
+        pnlTop.setBackground(Color.pink);
 
         TFinput = new JTextField(10);
         TFinput.addActionListener(this);
@@ -72,14 +73,17 @@ public class Main extends JFrame implements ActionListener
 
         if (!load.getMapState().containsKey(ab))
         {
-            LBLresult.setText("This is not a state abbreviation! Try again!");
+            LBLresult.setOpaque(true);
+            LBLresult.setBackground(Color.RED);
+            LBLresult.setText(ab + " is not a state abbreviation! Try again.");
         }
          else
         {
+            LBLresult.setOpaque(true);
+            LBLresult.setBackground(Color.YELLOW);
             state = load.getMapState().get(ab);
             LBLresult.setText(String.valueOf(state));
          }
-
-
+        TFinput.setText("");
     }
 }

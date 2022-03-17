@@ -22,6 +22,6 @@ public class State
 
     @Override
     public String toString() {
-        return "The unemployment in " + full_name + " is " + unemployment + "%";
+        return "The unemployment in " + full_name + " is " + unemployment + "%.";
     }
 }
