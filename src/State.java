@@ -1,18 +1,22 @@
 public class State
 {
-String abbreviation;
-String full_name;
-Float unemployment;
+    String abbreviation;
+    String full_name;
+    Float unemployment;
 
-public State(String abb)
-{
-    abbreviation = abb;
-    full_name = "none";
-    unemployment = 0f;
-}
+    public State(String abbreviation, String full_name, Float unemployment)
+    {
+        this.abbreviation = abbreviation;
+        this.full_name = full_name;
+        this.unemployment = unemployment;
+    }
 
-public String toString()
-{
-    return "The unemployment in " + full_name + " is " + unemployment;
-}
+    @Override
+    public String toString() {
+        return "State{" +
+                "abbreviation='" + abbreviation + '\'' +
+                ", full_name='" + full_name + '\'' +
+                ", unemployment=" + unemployment +
+                '}';
+    }
 }

@@ -2,6 +2,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.HashMap;
+import java.util.Locale;
+import java.util.Map;
+import java.util.*;
 
 public class GUI extends JFrame implements ActionListener
 {
@@ -21,6 +25,7 @@ public class GUI extends JFrame implements ActionListener
                     }
                 }
         );
+        Main.loadState();
     }
 
     public GUI()
@@ -59,6 +64,24 @@ public class GUI extends JFrame implements ActionListener
     @Override
     public void actionPerformed(ActionEvent e)
     {
+        String abb = TFinput.getText();
+      //  Main.display(abb);
+        Main main = new Main();
+        State state = main.getMapState().get(abb);
+        //System.out.println(state);
+        String ab = abb.toUpperCase(Locale.ROOT);
+
+        if (!main.getMapState().containsKey(ab))
+        {
+            LBLresult.setText("This is not a state abbreviation! Try again!");
+
+        }
+         else
+        {state = main.getMapState().get(ab);
+        // System.out.println(state.unemployment);
+            LBLresult.setText(String.valueOf(state.unemployment));
+         }
+
 
     }
 }

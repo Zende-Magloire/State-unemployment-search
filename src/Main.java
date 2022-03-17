@@ -7,29 +7,21 @@ public class Main
     private static Scanner reader = new Scanner (System.in);
     private static Map<String, State> MapState = new HashMap<>();
 
-    public static void main (String[] args)
-    {
-        loadState();
-
-        System.out.println("abb?: ");
-        String abb = reader.nextLine();
-
-        if (abb == null)
-            abb = "";
-
-        String ab = abb.toUpperCase(Locale.ROOT);
-
-        if (!MapState.containsKey(ab)) {
-            System.out.println("not available");
-            return;
-        }
-
-        State state = MapState.get(ab);
-        System.out.println(state);
-
+    public static Map<String, State> getMapState() {
+        return MapState;
     }
 
-    private static void loadState()
+    public Main()
+    {
+    }
+
+    public static void main (String[] args)
+    {
+       // loadState();
+        //display();
+    }
+
+    public static void loadState()
     {
         File file = new File(Database);
         Scanner reader = null;
@@ -54,10 +46,7 @@ public class Main
                 String Full_name = tokenizer.nextToken();
                 Float Unemployed = Float.valueOf(tokenizer.nextToken());
 
-                State state = new State (ab);
-                state.full_name = Full_name;
-                state.unemployment = Unemployed;
-
+                State state = new State (ab, Full_name, Unemployed);
                 MapState.put(state.abbreviation, state);
             }
         }
@@ -70,6 +59,27 @@ public class Main
             if (reader != null)
             reader.close();
         }
+    }
 
+    public static void display(String abb)
+    {
+
+       // System.out.print("abb?: ");
+        //String abb = reader.nextLine();
+
+       // String ab = abb.toUpperCase(Locale.ROOT);
+
+//        if (!MapState.containsKey(ab))
+//        {
+//            System.out.println(MapState);
+//            System.out.println("This is not a state abbreviation! Try again!");
+//
+//        }
+
+       // else
+        //{
+           // State state = MapState.get(ab);
+           // System.out.println(state.unemployment);
+       // }
     }
 }
