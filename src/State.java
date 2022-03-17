@@ -11,12 +11,17 @@ public class State
         this.unemployment = unemployment;
     }
 
+//    @Override
+//    public String toString() {
+//        return "State{" +
+//                "abbreviation='" + abbreviation + '\'' +
+//                ", full_name='" + full_name + '\'' +
+//                ", unemployment=" + unemployment +
+//                '}';
+//    }
+
     @Override
     public String toString() {
-        return "State{" +
-                "abbreviation='" + abbreviation + '\'' +
-                ", full_name='" + full_name + '\'' +
-                ", unemployment=" + unemployment +
-                '}';
+        return "The unemployment in " + full_name + " is " + unemployment + "%";
     }
 }

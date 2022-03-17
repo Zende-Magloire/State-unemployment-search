@@ -1,85 +1,85 @@
-import java.io.File;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.HashMap;
+import java.util.Locale;
+import java.util.Map;
 import java.util.*;
 
-public class Main
+public class Main extends JFrame implements ActionListener
 {
-    private static final String Database = "res/unemployment.csv";
-    private static Scanner reader = new Scanner (System.in);
-    private static Map<String, State> MapState = new HashMap<>();
+    private JTextField TFinput;
+    private JButton BTNgo;
+    private JLabel LBLresult;
 
-    public static Map<String, State> getMapState() {
-        return MapState;
+    Load load = new Load();
+
+    public static void main (String[] args)
+    {
+        EventQueue.invokeLater(
+                new Runnable()
+                {
+                    @Override
+                    public void run()
+                    {
+                        new Main();
+                    }
+                }
+        );
     }
 
     public Main()
     {
+        initGUI();
+        load.loadState();
     }
 
-    public static void main (String[] args)
+    private void initGUI()
     {
-       // loadState();
-        //display();
+        setTitle("State Search");
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setSize(512, 256);
+
+        JPanel pnlTop = new JPanel();
+
+        TFinput = new JTextField(10);
+        TFinput.addActionListener(this);
+
+        BTNgo = new JButton("Search");
+        BTNgo.addActionListener(this);
+
+        LBLresult = new JLabel("STATE UNEMPLOYMENT SEARCH");
+        LBLresult.setHorizontalAlignment(JLabel.CENTER);
+
+        pnlTop.add(new JLabel("Enter state abbreviation:"));
+        pnlTop.add(TFinput);
+        pnlTop.add(BTNgo);
+
+        this.add(pnlTop, BorderLayout.PAGE_START);
+        this.add(LBLresult, BorderLayout.CENTER);
+
+        setLocationRelativeTo(null);
+        setVisible(true);
     }
 
-    public static void loadState()
+    @Override
+    public void actionPerformed(ActionEvent e)
     {
-        File file = new File(Database);
-        Scanner reader = null;
+        String abb = TFinput.getText();
+        String ab = abb.toUpperCase(Locale.ROOT);
+        State state = load.getMapState().get(ab);
 
-        if(!file.exists())
+        if (!load.getMapState().containsKey(ab))
         {
-            System.out.println("Error! Could not find state database.");
-            return;
+            LBLresult.setText("This is not a state abbreviation! Try again!");
         }
-
-        try
+         else
         {
-            reader = new Scanner(file);
-            reader.nextLine();
+            state = load.getMapState().get(ab);
+            LBLresult.setText(String.valueOf(state));
+         }
 
-            while (reader.hasNext())
-            {
-                String info = reader.nextLine();
-                StringTokenizer tokenizer = new StringTokenizer(info, ",");
 
-                String ab = tokenizer.nextToken();
-                String Full_name = tokenizer.nextToken();
-                Float Unemployed = Float.valueOf(tokenizer.nextToken());
-
-                State state = new State (ab, Full_name, Unemployed);
-                MapState.put(state.abbreviation, state);
-            }
-        }
-        catch (Exception ex)
-        {
-            System.out.println("Error! Could not load state database!");
-        }
-        finally
-        {
-            if (reader != null)
-            reader.close();
-        }
-    }
-
-    public static void display(String abb)
-    {
-
-       // System.out.print("abb?: ");
-        //String abb = reader.nextLine();
-
-       // String ab = abb.toUpperCase(Locale.ROOT);
-
-//        if (!MapState.containsKey(ab))
-//        {
-//            System.out.println(MapState);
-//            System.out.println("This is not a state abbreviation! Try again!");
-//
-//        }
-
-       // else
-        //{
-           // State state = MapState.get(ab);
-           // System.out.println(state.unemployment);
-       // }
     }
 }
